@@ -30,18 +30,30 @@ class ExampleInstrumentedTest {
     val activityRule = ActivityTestRule(MainActivity::class.java)
 
     @Test
-    fun click_button() {
-        val snackBarMatcher = allOf(
-            withId(android.support.design.R.id.snackbar_text),
-            withText("BOOM!")
-        )
+    fun button_message_changes_on_pressing() {
+        onView(buttonMatcher).check(matches(
+            allOf(
+                isDisplayed(),
+                withText("PRESS TO TEST")
+            )))
+    }
+
+    @Test
+    fun clicking_button_shows_temporary_BOOM_message() {
 
         onView(snackBarMatcher).check(doesNotExist())
 
-        onView(withId(R.id.button)).perform(click())
+        onView(buttonMatcher).perform(click())
         onView(snackBarMatcher).check(matches(isDisplayed()))
 
         Thread.sleep(3000)
         onView(snackBarMatcher).check(doesNotExist())
     }
 }
+
+private val buttonMatcher = withId(R.id.button)
+private val snackBarMatcher = allOf(
+    withId(android.support.design.R.id.snackbar_text),
+    withText("BOOM!")
+)
+
