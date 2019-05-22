@@ -31,13 +31,15 @@ class ExampleInstrumentedTest {
 
     @Test
     fun button_message_changes_on_pressing() {
-        onView(buttonMatcher).check(isDisplayed(withText("PRESS TO TEST")))
+        val button = onView(buttonMatcher)
 
-        onView(buttonMatcher).perform(Finger.pressAndHold())
-        onView(buttonMatcher).check(isDisplayed(withText("RELEASE TO DETONATE")))
+        button.check(isDisplayed(withText("PRESS TO TEST")))
 
-        onView(buttonMatcher).perform(Finger.release())
-        onView(buttonMatcher).check(isDisplayed(withText("PRESS TO TEST")))
+        button.perform(Finger.pressAndHold())
+        button.check(isDisplayed(withText("RELEASE TO DETONATE")))
+
+        button.perform(Finger.release())
+        button.check(isDisplayed(withText("PRESS TO TEST")))
     }
 
     @Test
@@ -54,6 +56,7 @@ class ExampleInstrumentedTest {
 }
 
 private val buttonMatcher = withId(R.id.button)
+
 private val snackBarMatcher = allOf(
     withId(android.support.design.R.id.snackbar_text),
     withText("BOOM!")
