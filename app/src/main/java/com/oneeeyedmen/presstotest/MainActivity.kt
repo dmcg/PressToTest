@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         button.setOnClickListener { view ->
-            Snackbar.make(view, "BOOM!", Snackbar.LENGTH_LONG)
+            Snackbar.make(view, "BOOM!", Snackbar.LENGTH_SHORT)
                 .setAction("Action", null).show()
         }
     }
