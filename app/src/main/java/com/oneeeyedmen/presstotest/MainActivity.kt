@@ -15,14 +15,14 @@ class MainActivity : AppCompatActivity() {
 
         button.setOnTouchListener { view, event ->
             when (event.actionMasked) {
-                MotionEvent.ACTION_DOWN -> button.text = "RELEASE TO DETONATE"
-                MotionEvent.ACTION_UP -> button.text = "PRESS TO TEST"
+                MotionEvent.ACTION_DOWN -> button.text = getString(R.string.pressed_button_label)
+                MotionEvent.ACTION_UP -> button.text = getString(R.string.default_button_label)
             }
             false
         }
 
         button.setOnClickListener { view ->
-            Snackbar.make(view, "BOOM!", Snackbar.LENGTH_SHORT)
+            Snackbar.make(view, getString(R.string.explosion), Snackbar.LENGTH_SHORT)
                 .setAction("Action", null).show()
         }
     }

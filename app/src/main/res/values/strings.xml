@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">PressToTest</string>
+    <string name="app_name">Press to Test</string>
+    <string name="default_button_label">Press to Test</string>
+    <string name="pressed_button_label">Release to Detonate</string>
+    <string name="explosion">BOOM!</string>
 </resources>

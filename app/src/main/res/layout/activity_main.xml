@@ -8,7 +8,7 @@
         tools:context=".MainActivity">
 
     <Button
-            android:text="Press To Test"
+            android:text="@string/default_button_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/button" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
