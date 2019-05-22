@@ -43,7 +43,18 @@ class ExampleInstrumentedTest {
             )))
 
         onView(buttonMatcher).perform(Finger.pressAndHold())
+        onView(buttonMatcher).check(matches(
+            allOf(
+                isDisplayed(),
+                withText("RELEASE TO DETONATE")
+            )))
+
         onView(buttonMatcher).perform(Finger.release())
+        onView(buttonMatcher).check(matches(
+            allOf(
+                isDisplayed(),
+                withText("PRESS TO TEST")
+            )))
     }
 
     @Test
