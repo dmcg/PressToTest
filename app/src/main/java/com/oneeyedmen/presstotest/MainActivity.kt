@@ -1,4 +1,4 @@
-package com.oneeeyedmen.presstotest
+package com.oneeyedmen.presstotest
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle

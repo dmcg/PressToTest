@@ -1,4 +1,4 @@
-package com.oneeeyedmen.presstotest
+package com.oneeyedmen.presstotest
 
 import android.view.MotionEvent
 import android.view.View
