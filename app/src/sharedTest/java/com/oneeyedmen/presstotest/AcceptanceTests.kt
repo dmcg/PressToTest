@@ -19,7 +19,7 @@ import org.junit.Rule
 
 
 @RunWith(AndroidJUnit4::class)
-abstract class AcceptanceTests() {
+abstract class AcceptanceTests {
 
     @get:Rule
     val activityRule = ActivityTestRule(MainActivity::class.java)
@@ -49,7 +49,7 @@ abstract class AcceptanceTests() {
         onView(snackBarMatcher).check(doesNotExist())
     }
 
-    protected abstract fun sleep(millis: Long): Unit
+    protected abstract fun sleep(millis: Long)
 }
 
 private val buttonMatcher = withId(R.id.button)
