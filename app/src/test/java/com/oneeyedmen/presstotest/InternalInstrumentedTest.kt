@@ -22,6 +22,8 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 import org.junit.Rule
+import org.robolectric.shadows.ShadowLooper
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -56,7 +58,7 @@ class InternalInstrumentedTest {
         onView(buttonMatcher).perform(click())
         onView(snackBarMatcher).check(isDisplayed())
 
-        Thread.sleep(3000)
+        ShadowLooper.idleMainLooper(3, TimeUnit.SECONDS)
         onView(snackBarMatcher).check(doesNotExist())
     }
 }
