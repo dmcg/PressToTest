@@ -1,21 +1,22 @@
 package com.oneeyedmen.presstotest
 
 import android.view.View
-import androidx.test.espresso.Espresso.*
+import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
+import junit.framework.AssertionFailedError
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers
 import org.hamcrest.core.AllOf.allOf
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-
-import org.junit.Rule
 
 
 @RunWith(AndroidJUnit4::class)
@@ -45,12 +46,23 @@ abstract class AcceptanceTests {
         onView(buttonMatcher).perform(click())
         onView(snackBarMatcher).check(isDisplayed())
 
-        sleep(3000)
-        onView(snackBarMatcher).check(doesNotExist())
+        waitForSuccess("Snackbar gone") {
+            onView(snackBarMatcher).check(doesNotExist())
+        }
     }
 
-    protected abstract fun sleep(millis: Long)
+    fun waitForSuccess(description: String, viewAssertion: () -> Unit) = waitForCondition(description) {
+        try {
+            viewAssertion()
+            true
+        } catch (x: AssertionFailedError) {
+            false
+        }
+    }
+
+    protected abstract fun waitForCondition(description: String, condition: () -> Boolean)
 }
+
 
 private val buttonMatcher = withId(R.id.button)
 

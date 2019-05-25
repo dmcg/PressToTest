@@ -58,5 +58,8 @@ dependencies {
     testImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
+    testImplementation 'com.azimolabs.conditionwatcher:conditionwatcher:0.2'
+    androidTestImplementation 'com.azimolabs.conditionwatcher:conditionwatcher:0.2'
+
     testImplementation 'org.robolectric:robolectric:4.0'
 }
