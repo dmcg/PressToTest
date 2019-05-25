@@ -2,6 +2,7 @@ package com.oneeyedmen.presstotest
 
 import org.junit.Assert.*
 import org.junit.Test
+import java.io.IOException
 import java.util.concurrent.TimeoutException
 
 class WaiterTests {
@@ -31,7 +32,7 @@ class WaiterTests {
     fun throws_if_timeout_before_condition_is_met() {
         var conditionCount = 0
         try {
-            waiter.waitFor("a thing", timeoutMillis = 250, pollMillis = 250) {
+            waiter.waitFor("a thing", timeoutMillis = 100, pollMillis = 100) {
                 conditionCount++
                 false
             }
@@ -74,13 +75,20 @@ class WaiterTests {
     }
 
     @Test
-    fun waitForSuccess_polls_until_no_exception_thrown() {
+    fun waitForNo_polls_until_exception_not_thrown() {
         var conditionCount = 0
 
-        waiter.waitForSuccess {
-            if (conditionCount++ != 2) throw RuntimeException()
+        waiter.waitForNo<IOException> {
+            if (conditionCount++ != 2) throw IOException()
         }
         assertEquals(3, conditionCount)
+    }
+
+    @Test(expected = IOException::class)
+    fun waitForNo_passes_on_other_exception() {
+        waiter.waitForNo<RuntimeException> {
+            throw IOException()
+        }
     }
 }
 

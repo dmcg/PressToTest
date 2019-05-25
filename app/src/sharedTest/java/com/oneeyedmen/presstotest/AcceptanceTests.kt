@@ -10,6 +10,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
+import junit.framework.AssertionFailedError
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers
 import org.hamcrest.core.AllOf.allOf
@@ -45,7 +46,7 @@ abstract class AcceptanceTests(private val waiter: Waiter) {
         onView(buttonMatcher).perform(click())
         onView(snackBarMatcher).check(isDisplayed())
 
-        waiter.waitForSuccess("Snackbar gone") {
+        waiter.waitForNo<AssertionFailedError>("Snackbar gone") {
             onView(snackBarMatcher).check(doesNotExist())
         }
     }

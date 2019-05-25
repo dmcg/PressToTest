@@ -28,18 +28,18 @@ data class Waiter(
         }
     }
 
-    fun waitForSuccess(
+    inline fun <reified T: Throwable> waitForNo(
         description: String? = null,
         timeoutMillis: Long = -1,
         pollMillis: Long = -1,
-        block: () -> Unit
+        crossinline block: () -> Unit
     ) {
         waitFor(description, timeoutMillis, pollMillis) {
             try {
                 block()
                 true
             } catch (t: Throwable) {
-                false
+                if (t is T) false else throw t
             }
         }
     }
