@@ -1,10 +1,8 @@
 package com.oneeyedmen.presstotest
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.view.MotionEvent
-
+import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -13,13 +11,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        button.setOnTouchListener { view, event ->
-            when (event.actionMasked) {
-                MotionEvent.ACTION_DOWN -> button.text = getString(R.string.pressed_button_label)
-                MotionEvent.ACTION_UP -> button.text = getString(R.string.default_button_label)
-            }
-            false
-        }
+        val viewModel = ViewModel(button::setText)
+        button.setOnTouchListener(viewModel.onTouchListener)
 
         button.setOnClickListener { view ->
             Snackbar.make(view, getString(R.string.explosion), Snackbar.LENGTH_SHORT)
