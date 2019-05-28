@@ -25,10 +25,16 @@ abstract class AcceptanceTests(private val waiter: Waiter) {
     @get:Rule
     val activityRule = ActivityTestRule(MainActivity::class.java)
 
+    val button = onView(withId(R.id.button))
+    val snackBar get() = onView(
+        allOf(
+            withId(android.support.design.R.id.snackbar_text),
+            withText("BOOM!")
+        )
+    )
+
     @Test
     fun button_message_changes_on_pressing() {
-        val button = onView(buttonMatcher)
-
         button.check(matchesIsDisplayed(withText("PRESS TO TEST")))
 
         button.perform(Finger.pressAndHold())
@@ -40,25 +46,16 @@ abstract class AcceptanceTests(private val waiter: Waiter) {
 
     @Test
     fun clicking_button_shows_temporary_BOOM_message() {
+        snackBar.check(doesNotExist())
 
-        onView(snackBarMatcher).check(doesNotExist())
-
-        onView(buttonMatcher).perform(click())
-        onView(snackBarMatcher).check(matchesIsDisplayed())
+        button.perform(click())
+        snackBar.check(matchesIsDisplayed())
 
         waiter.waitForNo<AssertionFailedError>("Snackbar gone") {
-            onView(snackBarMatcher).check(doesNotExist())
+            snackBar.check(doesNotExist())
         }
     }
 }
-
-
-private val buttonMatcher = withId(R.id.button)
-
-private val snackBarMatcher = allOf(
-    withId(android.support.design.R.id.snackbar_text),
-    withText("BOOM!")
-)
 
 private fun matchesIsDisplayed(matcher: Matcher<View> = Matchers.any(View::class.java)) = matches(
     allOf(
