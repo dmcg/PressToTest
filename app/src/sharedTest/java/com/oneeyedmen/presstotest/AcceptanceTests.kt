@@ -29,13 +29,13 @@ abstract class AcceptanceTests(private val waiter: Waiter) {
     fun button_message_changes_on_pressing() {
         val button = onView(buttonMatcher)
 
-        button.check(isDisplayed(withText("PRESS TO TEST")))
+        button.check(matchesIsDisplayed(withText("PRESS TO TEST")))
 
         button.perform(Finger.pressAndHold())
-        button.check(isDisplayed(withText("RELEASE TO DETONATE")))
+        button.check(matchesIsDisplayed(withText("RELEASE TO DETONATE")))
 
         button.perform(Finger.release())
-        button.check(isDisplayed(withText("PRESS TO TEST")))
+        button.check(matchesIsDisplayed(withText("PRESS TO TEST")))
     }
 
     @Test
@@ -44,7 +44,7 @@ abstract class AcceptanceTests(private val waiter: Waiter) {
         onView(snackBarMatcher).check(doesNotExist())
 
         onView(buttonMatcher).perform(click())
-        onView(snackBarMatcher).check(isDisplayed())
+        onView(snackBarMatcher).check(matchesIsDisplayed())
 
         waiter.waitForNo<AssertionFailedError>("Snackbar gone") {
             onView(snackBarMatcher).check(doesNotExist())
@@ -60,7 +60,7 @@ private val snackBarMatcher = allOf(
     withText("BOOM!")
 )
 
-private fun isDisplayed(matcher: Matcher<View> = Matchers.any(View::class.java)) = matches(
+private fun matchesIsDisplayed(matcher: Matcher<View> = Matchers.any(View::class.java)) = matches(
     allOf(
         ViewMatchers.isDisplayed(),
         matcher
