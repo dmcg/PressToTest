@@ -11,12 +11,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val viewModel = ViewModel(onButtonTextChanged = button::setText)
+        val viewModel = ViewModel(
+            onButtonTextChanged = button::setText,
+            goBoom = this::boom)
         button.setOnTouchListener(viewModel.onTouchListener)
+        button.setOnClickListener(viewModel.onClickListener)
+    }
 
-        button.setOnClickListener { view ->
-            Snackbar.make(view, getString(R.string.explosion), Snackbar.LENGTH_SHORT)
-                .setAction("Action", null).show()
-        }
+    private fun boom() {
+        Snackbar.make(button, getString(R.string.explosion), Snackbar.LENGTH_SHORT)
+            .setAction("Action", null).show()
     }
 }

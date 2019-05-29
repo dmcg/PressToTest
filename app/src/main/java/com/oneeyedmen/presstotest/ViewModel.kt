@@ -5,7 +5,8 @@ import android.view.View
 import kotlin.properties.Delegates
 
 class ViewModel(
-    private val onButtonTextChanged: (String) -> Unit
+    private val onButtonTextChanged: (String) -> Unit,
+    private var goBoom: () -> Unit
 ) {
 
     private val defaultText = "Press to Test"
@@ -27,8 +28,14 @@ class ViewModel(
         }
     }
 
-    val onTouchListener = View.OnTouchListener { v, event ->
+    fun onClick() {
+        goBoom()
+    }
+
+    val onTouchListener = View.OnTouchListener { _, event ->
         onTouchAction(event.actionMasked)
         false
     }
+
+    val onClickListener = View.OnClickListener { onClick() }
 }

@@ -7,7 +7,11 @@ import org.junit.Test
 class PressToTestTests {
 
     var buttonText = "DEFAULT"
-    val viewModel = ViewModel { buttonText = it }
+    var boomCount = 0
+    val viewModel = ViewModel(
+        onButtonTextChanged = { buttonText = it },
+        goBoom = { boomCount++ }
+    )
 
     @Test
     fun `button message changes on pressing`() {
@@ -18,5 +22,13 @@ class PressToTestTests {
 
         viewModel.onTouchAction(MotionEvent.ACTION_UP)
         assertEquals("Press to Test", buttonText)
+    }
+
+    @Test
+    fun `clicking button sets off the explosion`() {
+        assertEquals(0, boomCount)
+
+        viewModel.onClick()
+        assertEquals(1, boomCount)
     }
 }
