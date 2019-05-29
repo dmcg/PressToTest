@@ -16,6 +16,7 @@ class ViewModel(
     }
 
     init {
+        // required to sync the view on creation
         buttonText = defaultText
     }
 
