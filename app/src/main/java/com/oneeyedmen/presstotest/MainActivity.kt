@@ -11,13 +11,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val viewModel = ViewModel(
+        ViewModel(
+            button = button,
             defaultText = getString(R.string.default_button_label),
             pressedText = getString(R.string.pressed_button_label),
-            onButtonTextChanged = button::setText,
-            goBoom = this::boom)
-        button.setOnTouchListener(viewModel.onTouchListener)
-        button.setOnClickListener(viewModel.onClickListener)
+            goBoom = this::boom
+        )
     }
 
     private fun boom() {

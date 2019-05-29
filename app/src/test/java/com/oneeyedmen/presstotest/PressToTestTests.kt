@@ -6,8 +6,8 @@ import org.junit.Test
 
 class PressToTestTests {
 
-    var buttonText = "DEFAULT"
-    var boomCount = 0
+    private var buttonText = "DEFAULT"
+    private var boomCount = 0
 
     val viewModel = ViewModel(
         defaultText = "Press to Test",

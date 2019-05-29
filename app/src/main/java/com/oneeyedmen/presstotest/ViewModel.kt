@@ -1,31 +1,46 @@
 package com.oneeyedmen.presstotest
 
+import android.support.annotation.VisibleForTesting
 import android.view.MotionEvent
-import android.view.View
+import android.widget.Button
 import kotlin.properties.Delegates
 
 class ViewModel(
-    private val defaultText: String = "Press to Test",
-    private val pressedText: String = "Release to Detonate",
+    private val defaultText: String,
+    private val pressedText: String,
     private val onButtonTextChanged: (String) -> Unit,
     private var goBoom: () -> Unit
 ) {
-    var buttonText: String by Delegates.observable(defaultText) { _, _, newValue ->
+    private var buttonText: String by Delegates.observable(defaultText) { _, _, newValue ->
         onButtonTextChanged(newValue)
     }
 
-    val onTouchListener = View.OnTouchListener { _, event ->
-        onTouchAction(event.actionMasked)
-        false
+    constructor(
+        button: Button,
+        defaultText: String,
+        pressedText: String,
+        goBoom: () -> Unit
+    ) : this(
+        defaultText = defaultText,
+        pressedText = pressedText,
+        onButtonTextChanged = button::setText,
+        goBoom = goBoom
+    ) {
+        button.setOnTouchListener { _, event ->
+            onTouchAction(event.actionMasked)
+            false
+        }
+        button.setOnClickListener {
+            onClick()
+        }
     }
-
-    val onClickListener = View.OnClickListener { onClick() }
 
     init {
         // sync the view on creation
         buttonText = defaultText
     }
 
+    @VisibleForTesting
     internal fun onTouchAction(actionCode:Int) {
         when (actionCode) {
             MotionEvent.ACTION_DOWN -> buttonText = pressedText
@@ -33,6 +48,7 @@ class ViewModel(
         }
     }
 
+    @VisibleForTesting
     internal fun onClick() {
         goBoom()
     }
