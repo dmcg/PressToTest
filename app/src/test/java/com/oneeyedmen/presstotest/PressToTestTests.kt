@@ -8,7 +8,10 @@ class PressToTestTests {
 
     var buttonText = "DEFAULT"
     var boomCount = 0
+
     val viewModel = ViewModel(
+        defaultText = "Press to Test",
+        pressedText = "Release to Detonate",
         onButtonTextChanged = { buttonText = it },
         goBoom = { boomCount++ }
     )
@@ -30,5 +33,8 @@ class PressToTestTests {
 
         viewModel.onClick()
         assertEquals(1, boomCount)
+
+        viewModel.onClick()
+        assertEquals(2, boomCount)
     }
 }

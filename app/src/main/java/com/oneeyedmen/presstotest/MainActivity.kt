@@ -12,6 +12,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val viewModel = ViewModel(
+            defaultText = getString(R.string.default_button_label),
+            pressedText = getString(R.string.pressed_button_label),
             onButtonTextChanged = button::setText,
             goBoom = this::boom)
         button.setOnTouchListener(viewModel.onTouchListener)
