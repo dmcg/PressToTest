@@ -1,20 +1,25 @@
 package com.oneeyedmen.presstotest
 
 import android.view.MotionEvent
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import org.junit.Assert.assertEquals
+import org.junit.Rule
 import org.junit.Test
 
 class PressToTestTests {
 
-    private var buttonText = "DEFAULT"
+    @get:Rule
+    val rule = InstantTaskExecutorRule()
+
     private var boomCount = 0
 
     val viewModel = ViewModel(
         defaultText = "Press to Test",
         pressedText = "Release to Detonate",
-        onButtonTextChanged = { buttonText = it },
         goBoom = { boomCount++ }
     )
+
+    private val buttonText get() = viewModel.buttonText.value
 
     @Test
     fun `button message changes on pressing`() {
