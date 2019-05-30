@@ -1,8 +1,8 @@
 package com.oneeyedmen.presstotest
 
 import android.view.MotionEvent
+import android.view.View
 import android.view.View.OnTouchListener
-import android.widget.Button
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.MutableLiveData
 
@@ -14,25 +14,12 @@ class ViewModel(
 ) {
     var buttonText = MutableLiveData<String>(defaultText)
 
-    constructor(
-        button: Button,
-        defaultText: String,
-        pressedText: String,
-        goBoom: () -> Unit
-    ) : this(
-        defaultText = defaultText,
-        pressedText = pressedText,
-        goBoom = goBoom
-    ) {
-        button.setOnClickListener {
-            onClick()
-        }
-    }
-
     val onTouchListener = OnTouchListener { _, event ->
         onTouchAction(event.action)
         false
     }
+
+    val onClickListener = View.OnClickListener { onClick() }
 
     @VisibleForTesting
     internal fun onTouchAction(actionCode: Int) {

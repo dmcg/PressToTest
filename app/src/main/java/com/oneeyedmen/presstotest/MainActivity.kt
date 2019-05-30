@@ -15,12 +15,10 @@ class MainActivity : AppCompatActivity() {
         DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main).let {
             it.lifecycleOwner = this
             it.viewmodel = ViewModel(
-                button = button,
                 defaultText = getString(R.string.default_button_label),
                 pressedText = getString(R.string.pressed_button_label),
                 goBoom = this::boom
             )
-
         }
     }
 
