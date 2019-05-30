@@ -28,7 +28,7 @@ abstract class AcceptanceTests(private val waiter: Waiter) {
     val button = onView(withId(R.id.button))
     val snackBar get() = onView(
         allOf(
-            withId(android.support.design.R.id.snackbar_text),
+            withId(com.google.android.material.R.id.snackbar_text),
             withText("BOOM!")
         )
     )
