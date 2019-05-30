@@ -1,8 +1,8 @@
 package com.oneeyedmen.presstotest
 
-import android.support.annotation.VisibleForTesting
 import android.view.MotionEvent
 import android.widget.Button
+import androidx.annotation.VisibleForTesting
 import kotlin.properties.Delegates
 
 class ViewModel(
