@@ -22,7 +22,7 @@ data class Waiter(
         val endT = System.currentTimeMillis() + resolvedTimeoutMillis
         while (!condition()) {
             if (System.currentTimeMillis() > endT)
-                throw TimeoutException("Timeout waiting for $resolvedDescription after more than $timeoutMillis ms")
+                throw TimeoutException("Timeout waiting for $resolvedDescription after more than $resolvedTimeoutMillis ms")
             Thread.sleep(resolvedPollMillis)
             twiddler()
         }
