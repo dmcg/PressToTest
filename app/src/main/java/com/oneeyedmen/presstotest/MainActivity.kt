@@ -11,7 +11,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main).let {
             it.lifecycleOwner = this
             it.viewmodel = ViewModel(
@@ -23,7 +22,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun boom() {
-        Snackbar.make(button, getString(R.string.explosion), Snackbar.LENGTH_SHORT)
-            .setAction("Action", null).show()
+        Snackbar.make(button, getString(R.string.explosion), Snackbar.LENGTH_SHORT).show()
     }
 }
