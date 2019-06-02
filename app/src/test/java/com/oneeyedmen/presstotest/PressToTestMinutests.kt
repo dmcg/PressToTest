@@ -1,6 +1,7 @@
 package com.oneeyedmen.presstotest
 
-import android.view.MotionEvent
+import android.view.MotionEvent.ACTION_DOWN
+import android.view.MotionEvent.ACTION_UP
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import dev.minutest.junit.experimental.JUnit4Minutests
 import dev.minutest.junit.experimental.applyRule
@@ -21,9 +22,13 @@ class PressToTestMinutests : JUnit4Minutests() {
         )
 
         val buttonText get() = viewModel.buttonText.value
+
+        fun click() = viewModel.onClick()
+
+        fun touch(actionCode: Int) = viewModel.onTouchAction(actionCode)
     }
 
-    fun `thang`() = rootContext<Fixture> {
+    fun tests() = rootContext<Fixture> {
 
         fixture { Fixture() }
 
@@ -32,20 +37,20 @@ class PressToTestMinutests : JUnit4Minutests() {
         test("button message changes on pressing") {
             assertEquals("Press to Test", buttonText)
 
-            viewModel.onTouchAction(MotionEvent.ACTION_DOWN)
+            touch(ACTION_DOWN)
             assertEquals("Release to Detonate", buttonText)
 
-            viewModel.onTouchAction(MotionEvent.ACTION_UP)
+            touch(ACTION_UP)
             assertEquals("Press to Test", buttonText)
         }
 
         test("clicking button sets off the explosion") {
             assertEquals(0, boomCount)
 
-            viewModel.onClick()
+            click()
             assertEquals(1, boomCount)
 
-            viewModel.onClick()
+            click()
             assertEquals(2, boomCount)
         }
     }
